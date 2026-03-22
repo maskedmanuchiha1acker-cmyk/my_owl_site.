@@ -1,0 +1,200 @@
+body { min-height: 300vh; }
+
+body { margin: 0; background: #ffe9b7; font-family: sans-serif; overflow-x: hidden; }
+
+section { height: 100vh; width: 100%; position: relative; display: flex; justify-content: center; align-items: center; }
+.scene-1 {
+    isolation: isolate;
+    z-index: 1;
+}
+/* Слои первой сцены */
+.icons-group { 
+    position: absolute; 
+    top: 5%; 
+    right: 5%; 
+    z-index: 30; 
+    font-size: 2rem; 
+}
+.main-title { 
+    position: absolute; 
+    top: 15%; 
+    z-index: 5; 
+    font-size: 4rem; 
+    text-align: center; 
+}
+
+/* Персонаж (z-index 10) */
+.char-img { 
+    position: absolute; 
+    bottom: 20px; /* Уходит вниз */
+    width: 550px; 
+    z-index: 10; 
+    left: 48%;
+    transform: translateX(-50%);
+}
+
+/* Книга (z-index 20) */
+.book-wrapper {
+    position: absolute;
+    bottom: -10px; /* Гигантская книга, уходит ниже экрана */
+    width: 80%; /* Очень большая */
+    max-width: 1200px;
+    z-index: 12; /* Выше персонажа */
+    left: 46%;
+    transform: translateX(-50%);
+}
+.book-img {
+    transform-origin: bottom center; /* Точка, от которой идет масштаб */
+    will-change: transform; /* Подсказка для плавности */
+}
+/* Убедись, что между секциями нет дырок */
+.scene-1, .scene-2 {
+    margin: 0;
+    padding: 0;
+}
+
+.scene-2 {
+    background: #ae7f68; /* Твой коричневый фон */
+    min-height: 150vh;
+    width: 100%;
+    display: flex;
+    align-items: center; /* Центровка по вертикали */
+    justify-content: center; /* Центровка контейнера по горизонтали */
+    position: relative;
+    z-index: 10;
+}
+
+.scrolling-hole-container { 
+    display: flex;
+    width: 90%; 
+    max-width: 1200px;
+    justify-content: space-between; /* Расталкиваем текст и рамку в разные стороны */
+    align-items: center;
+}
+
+/* ТЕКСТ СЛЕВА */
+.content-left {
+    flex: 0 0 50%; /* Занимает половину ширины */
+    color: rgb(255, 249, 234);
+    align-self: flex-start;
+    margin-top: -100px;
+    padding-right: 50px;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.about-title { font-size: 4rem; margin-bottom: 20px; }
+.about-description { font-size: 1.5rem; }
+
+/* ГРАФИКА СПРАВА */
+.content-right {
+    position: relative; /* Чтобы лапка позиционировалась относительно этого блока */
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 200px;
+}
+
+/* МАЛЕНЬКАЯ АККУРАТНАЯ РАМКА */
+.tidy-frame {
+    width: 420px;
+    height: 450px;
+    background: #ffe9b7; /* Светлый фон как в начале */
+    border: 8px solid #5d4037; /* Темная кайма */
+    border-radius: 15px; /* Слегка скругленные углы */
+    overflow: hidden; /* Чтобы сова не вылезала за пределы рамки */
+    position: relative;
+}
+
+.owl-img {
+    width: 300%;
+    height: auto;
+    position: absolute;
+    bottom: -400px; /* Сова выглядывает снизу */
+    left: -650%
+}
+
+/* ЛАПКА С КНОПКОЙ */
+.hand-btn-overlap {
+    position: absolute;
+    bottom: -750; 
+    right: -90px; /* Лапка вылезает за край рамки вправо */
+    width: 860px; /* Делаем её заметной */
+    z-index: 20; /* Поверх рамки */
+    transform: scale(0.1);
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
+}
+
+.claw-btn-img {
+    width: 100%;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); /* Чтобы кнопка "отлипала" от фона */
+}
+
+/* Фоновая подложка (затемнение) */
+.modal {
+    display: none; /* Изначально скрыто */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Темный фон */
+    backdrop-filter: blur(5px); /* Размытие заднего плана */
+    z-index: 9999 !important;
+}
+
+/* Само окно */
+.modal-content {
+    background-color: #f1dfac;
+    margin: 2% auto; /* Уменьшили отступ сверху с 5% до 2%, чтобы влезло больше контента */
+    padding: 40px;   /* Увеличили внутренние отступы, чтобы тексту было просторнее */
+    border: 6px solid #5d4037;
+    
+    /* --- УВЕЛИЧИВАЕМ РАЗМЕР --- */
+    width: 90%;      /* Теперь занимает 90% ширины экрана */
+    max-width: 1100px; /* Но не больше 1100px, чтобы не растягивалось на весь огромный монитор */
+    min-height: 500px; /* Минимальная высота, чтобы окно не выглядело "приплюснутым" */
+    
+    border-radius: 30px; /* Сделали углы еще более округлыми и уютными */
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5); /* Добавили глубокую тень для объема */
+    max-height: 90vh; /* Максимальная высота - 90% от высоты экрана */
+    overflow-y: auto; /* Если текст не влезет, внутри рамочки появится аккуратная прокрутка */
+    z-index: 10000 !important;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Кнопка закрытия */
+.close-button {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #5d4037;
+}
+
+.modal-body {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+}
+
+.modal-image img {
+    width: 350px; /* Увеличили с 250px до 350px */
+    border-radius: 15px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+}
+
+.modal-text h2 {
+    font-size: 2.5rem; /* Сделали заголовок внушительнее */
+    margin-top: 0;
+}
