@@ -62,6 +62,7 @@ section { height: 100vh; width: 100%; position: relative; display: flex; justify
     justify-content: center; /* Центровка контейнера по горизонтали */
     position: relative;
     z-index: 10;
+    overflow: visible !important;
 }
 
 .scrolling-hole-container { 
@@ -199,22 +200,6 @@ section { height: 100vh; width: 100%; position: relative; display: flex; justify
     margin-top: 0;
 }
 
-/* Этот код сработает только на телефонах */
-@media (max-width: 600px) {
-    .owl-img {
-        width: 150px; /* Уменьшаем сову */
-    }
-    
-    .modal-content {
-        width: 95%; /* Рамка на весь экран телефона */
-        padding: 15px;
-    }
-    
-    .modal-body {
-        flex-direction: column; /* Картинка и текст будут друг под другом, а не в ряд */
-        text-align: center;
-    }
-}
 
 .scene-3 {
     height: 100vh;
@@ -224,6 +209,7 @@ section { height: 100vh; width: 100%; position: relative; display: flex; justify
     justify-content: center;
     align-items: center;
     perspective: 1500px; /* Для 3D эффекта книги */
+    overflow: visible !important;
 }
 
 .interactive-container {
@@ -242,7 +228,7 @@ section { height: 100vh; width: 100%; position: relative; display: flex; justify
     position: relative;
     width: 550px; /* Размер головы персонажа */
     height: 550px;
-    margin: 30px auto 0; /* Центрируем и даем отступ сверху */
+    margin: 300px auto 0; /* Центрируем и даем отступ сверху */
 }
 
 /* Все слои персонажа */
