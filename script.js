@@ -91,3 +91,73 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+// Данные страниц
+const pages = [
+    { title: "Страница 1", text: "Давным-давно в лесу...", img: "images.vsc/illustration1.png" },
+    { title: "Страница 2", text: "Герой нашел волшебный гриб...", img: "images.vsc/illustration2.png" },
+    { title: "Страница 3", text: "И начались приключения!", img: "images.vsc/illustration3.png" }
+];
+
+let currentPage = 0;
+
+// 1. СЛЕДЖЕНИЕ ГЛАЗ
+document.addEventListener('mousemove', (e) => {
+    const pupils = document.querySelectorAll('.pupil');
+    const character = document.getElementById('main-character');
+
+    if (!character) return;
+
+    const rect = character.getBoundingClientRect();
+    
+    // 1. Единый центр (переносица)
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2 + 25; 
+
+    // 2. Считаем расстояние от центра до мышки
+    const dx = e.clientX - centerX;
+    const dy = e.clientY - centerY;
+    const mouseDistance = Math.sqrt(dx * dx + dy * dy); // Пифагор: расстояние в пикселях
+
+    pupils.forEach(pupil => {
+        const angle = Math.atan2(dy, dx);
+        
+        // 3. Динамическая дистанция
+        // Ограничиваем максимальное смещение (например, 15px), 
+        // чтобы зрачок не вылез за белок
+        const maxLimit = 25; 
+        
+        // Чем дальше мышка, тем ближе зрачок к краю, но не дальше maxLimit
+        // Число 500 — это чувствительность. Если мышка дальше 500px, 
+        // зрачок замрет на краю.
+        const dynamicDist = Math.min(maxLimit, mouseDistance / 30); 
+
+        const x = Math.cos(angle) * dynamicDist;
+        const y = Math.sin(angle) * dynamicDist;
+
+        pupil.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+    });
+});
+
+const papers = document.querySelectorAll('.paper');
+
+papers.forEach((paper, index) => {
+    // Начальный порядок
+    paper.style.zIndex = papers.length - index;
+
+    paper.addEventListener('click', () => {
+        if (!paper.classList.contains('flipped')) {
+            paper.classList.add('flipped');
+            // Если анимация 1.2s, меняем слой ровно посередине (на 600ms)
+            setTimeout(() => { 
+                paper.style.zIndex = index; 
+            }, 900); 
+        } else {
+            paper.classList.remove('flipped');
+            // При возврате назад — тоже ждем середины пути
+            setTimeout(() => { 
+                paper.style.zIndex = papers.length - index; 
+            }, 600);
+        }
+    });
+});

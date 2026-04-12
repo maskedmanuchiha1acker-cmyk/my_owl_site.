@@ -215,3 +215,130 @@ section { height: 100vh; width: 100%; position: relative; display: flex; justify
         text-align: center;
     }
 }
+
+.scene-3 {
+    height: 100vh;
+    background: #ae7f68;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px; /* Для 3D эффекта книги */
+}
+
+.interactive-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Персонаж */
+/* Контейнер для всей группы персонажа */
+/* Контейнер-якорь */
+.character-assembly {
+    position: relative;
+    width: 550px; /* Размер головы персонажа */
+    height: 550px;
+    margin: 30px auto 0; /* Центрируем и даем отступ сверху */
+}
+
+/* Все слои персонажа */
+.head-mask-layer, .sockets-layer, .pupils-container, .paw {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+
+/* Расставляем слои по глубине */
+.sockets-layer {
+    z-index: 1; /* Самый нижний */
+    object-fit: contain; /* Чтобы картинка не растягивалась */
+    width: 265px;
+    height: 265px;
+    top: 165px;
+    left: 135px;
+}
+
+.pupils-container {
+    z-index: 2; /* Зрачки посередине */
+}
+
+.pupil {
+    position: absolute;
+    width: 55px; /* Размер зрачка */
+    height: 55px;
+    top: 54%; left: 50%; /* Стартовая точка в центре */
+    transform: translate(-50%, -50%); /* Центрирование */
+    pointer-events: none; /* Пропускаем мышку */
+}
+
+/* Настраиваем стартовое положение зрачков под глазницы */
+.pupil-left {
+    margin-left: -50px; /* Смещаем левый зрачок влево (подбери цифру) */
+}
+.pupil-right {
+    margin-left: 50px; /* Смещаем правый зрачок вправо */
+}
+
+.head-mask-layer {
+    z-index: 3; /* Самый верхний. Видны только зрачки */
+    pointer-events: none; /* Пропускаем мышку */
+}
+
+.book-container {
+    position: relative;
+    z-index: 999; /* Ставим 10, чтобы точно быть поверх головы (у которой z-index: 3) */
+    display: flex;
+    justify-content: center;
+    /* Управляем положением по вертикали: */
+    margin-top: -250px; /* Положительное число опустит книгу НИЖЕ от лица */
+    margin-left: 680px;
+}
+
+.book {
+    width: 720px;  /* Уменьши это число (было около 350) */
+    height: 780px; /* Уменьши это число (было около 500) */
+    position: relative;
+    perspective: 2500px;
+}
+
+.paper img {
+    width: 100%;
+    height: 100%;
+    
+}
+
+.paper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 1.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform-style: preserve-3d;
+    transform-origin: left;
+    /* Убираем щель между страницами */
+    left: 0;           /* Жестко прижимаем к левому краю */
+    margin-left: -2px; /* Накладываем листы друг на друга на 2 пикселя, чтобы закрыть дыру */
+}
+
+.front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden; /* Скрывает заднюю сторону, когда она отвернута */
+}
+
+.back {
+    transform: rotateY(180deg); /* Изначально развернута назад */
+    z-index: 0;
+}
+
+/* Состояние, когда страница перевернута */
+.paper.flipped {
+    /* Добавь translateX, чтобы физически сдвинуть левые страницы вправо */
+    transform: translateX(150px) rotateY(-180deg); 
+}
+

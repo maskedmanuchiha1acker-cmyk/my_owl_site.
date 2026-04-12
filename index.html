@@ -53,6 +53,55 @@
                 <p>Здесь может быть длинный текст о сюжете, персонажах и всё то, что ты хотел рассказать подробнее.</p>
                 <button class="buy-btn">Купить книгу</button>
             </div>
+        </div>
+     </div> 
+    </div>
+
+<section class="scene-3">
+    <div class="interactive-container">
+        
+        <div class="character-assembly" id="main-character">
+    
+    <img src="images.vsc/sockets.png" class="sockets-layer" alt="Глазницы">
+
+    <div class="pupils-container">
+        <img src="images.vsc/pupil-left.png" class="pupil pupil-left" alt="Зрачок Л">
+        <img src="images.vsc/pupil-right.png" class="pupil pupil-right" alt="Зрачок П">
+    </div>
+
+    <img src="images.vsc/body.png" class="head-mask-layer" alt="Голова">
+    
+    <img src="images.vsc/paw-right.png" class="paw paw-right" id="paw-right">
+    <img src="images.vsc/paw-left.png" class="paw paw-left" id="paw-left">
+</div>
+
+    <div class="book-container">
+        <div id="book" class="book">
+        
+            <div class="paper" id="p1" style="z-index: 3;">
+              <div class="front"><img src="images.vsc/p1.png"></div>
+              <div class="back"><img src="images.vsc/p11.png"></div>
+         </div>
+
+            <div class="paper" id="p2" style="z-index: 2;">
+              <div class="front"><img src="images.vsc/p2.png"></div>
+              <div class="back"><img src="images.vsc/p22.png"></div>
+         </div>
+
+            <div class="paper" id="p3" style="z-index: 1;">
+              <div class="front"><img src="images.vsc/p3.png"></div>
+              <div class="back"><img src="images.vsc/p33.png"></div>
+        </div>
+
+    </div>
+</div>
+
+        <div class="book-controls">
+            <button class="nav-btn" onclick="prevPage()">⬅ Назад</button>
+            <button class="nav-btn" onclick="nextPage()">Вперед ➡</button>
+        </div>
+    </div>
+</section>        
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
